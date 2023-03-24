@@ -1,0 +1,94 @@
+<div class="page-content">
+  <h3 class="text-center">Student Registration</h3>
+</div>
+
+<div class="container d-flex justify-content-center">
+  <div class="card" style="width: 40rem">
+    <div class="card-body">
+      <form [formGroup]="stdRegistration" (ngSubmit)="onSubmit()">
+        <input
+          type="text"
+          class="form-control mt-2"
+          placeholder="Name"
+          formControlName="name"
+          [ngClass]="{
+            'is-invalid': submitted && stdRegistration.controls['name'].errors
+          }"
+        />
+
+        <input
+          type="number"
+          class="form-control mt-2"
+          placeholder="Roll number"
+          formControlName="rollNum"
+          [ngClass]="{
+            'is-invalid':
+              submitted && stdRegistration.controls['rollNum'].errors
+          }"
+        />
+
+        <input
+          type="email"
+          class="form-control mt-2"
+          placeholder="Email"
+          formControlName="email"
+          [ngClass]="{
+            'is-invalid': submitted && stdRegistration.controls['email'].errors
+          }"
+        />
+
+        <input
+          type="number"
+          class="form-control mt-2"
+          placeholder="Current Standard"
+          formControlName="currStd"
+          [ngClass]="{
+            'is-invalid':
+              submitted && stdRegistration.controls['currStd'].errors
+          }"
+          (change)="onChange($event)"
+        />
+
+        <ng-container *ngIf="lastSdt" formArrayName="previousHistory">
+          <div class="container mt-5">
+            <div *ngFor="let historyForm of history.controls; let i = index">
+              <ng-container [formGroup]="historyForm" ]>
+                <label class="text-center">
+                  {{ historyForm.value.standard }}</label
+                >
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-4">
+                    <select class="form-control" formControlName="remark">
+                      <option value="">Remark</option>
+                      <option value="pass">Pass</option>
+                      <option value="fail">Fail</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4">
+                    <input
+                      type="number"
+                      name=""
+                      id=""
+                      placeholder="Percentage"
+                      formControlName="percentage"
+                      class="form-control"
+                      min="1"
+                      max="100"
+                    />
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+        <button
+          type="submit"
+          class="btn btn-success d-flex justify-content-center mt-2"
+        >
+          Submit Details
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
